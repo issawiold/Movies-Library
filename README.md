@@ -10,10 +10,10 @@ the Project is about using a constructor function inside node.js to create an ob
 ## Getting Started
 - you'll need to have node js installed on your local machine .
 - you'll need to clone the repo using git clone , you can clone even repos that are not yours when they are publicly shared -git clone link-.
--move inside the cloned directory/repo -cd repoName
--type npm i
+- move inside the cloned directory/repo -cd repoName
+- type npm i
 
 ## Project Features
 
-*ease of access
-*can be used offline after installment
+* ease of access
+* can be used offline after installment
