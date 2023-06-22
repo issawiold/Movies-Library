@@ -17,6 +17,7 @@ the Project is about using a constructor function inside node.js to create an ob
 
 * ease of access
 * can be used offline after installment
+
 * you can now check the latest most trending movie accourding to TMDB
 * not only that but you can search for movies using their titles in the entire database of TMDB
 ## routes
@@ -24,3 +25,4 @@ the Project is about using a constructor function inside node.js to create an ob
 */favourite* my favourite page
 */trending* the latest trending movies according to TMDB
 */search* to search for a certain Title please enter ?movieName="the title of the movie you're looking for" directly after your get request , thank you  , and it will search for it in TMDB
+
