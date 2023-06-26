@@ -16,6 +16,9 @@ moviesInfo.get('/', renderJSON)
 moviesInfo.get("/favorite", favMovie)
 moviesInfo.get("/trending", trendingMovie)
 moviesInfo.get("/search", searchMovie)
+moviesInfo.get("/nowPlaying", nowPlaying)
+moviesInfo.get("/upcoming", upcoming)
+
 
 moviesInfo.use("*", function wrongRoute(req, res, next) {
     res.send(new ErrorHandler(404, "page not found error"))
@@ -59,6 +62,27 @@ async function searchMovie(req, res) {
 
 }
 
+async function nowPlaying(req, res) {
+
+    let playing = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?language=en-US`)
+    // let trendingMovie1=JSON.parse(trending)
+    // console.log(trendingMovie1);
+    let playingMovie = playing.data.results
+    let arr = []
+    playingMovie.forEach(e => { arr.push(new MovieConstructor(e.id, e.title, e.release_date, e.poster_path, e.overview)) })
+    res.status(200).send(arr)
+}
+
+async function upcoming(req, res) {
+
+    let upcoming = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?&language=en-US`)
+    // let trendingMovie1=JSON.parse(trending)
+    // console.log(trendingMovie1);
+    let upcomingMovie = upcoming.data.results
+    let arr = []
+    upcomingMovie.forEach(e => { arr.push(new MovieConstructor(e.id, e.title, e.release_date, e.poster_path, e.overview)) })
+    res.status(200).send(arr)
+}
 function MovieConstructor(id, title, date, img, overview) {
     this.id = id;
     this.title = title;
