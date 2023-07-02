@@ -19,7 +19,11 @@ moviesInfo.get("/favorite", favMovie)
 moviesInfo.get("/trending", trendingMovie)
 moviesInfo.get("/search", searchMovie)
 moviesInfo.post("/addMovie", postMovie)
-moviesInfo.get("/getMovies", getMovie)
+moviesInfo.get("/getMovies", getMovies)
+moviesInfo.delete("/DELETE/:id", deleteMovie)
+moviesInfo.put("/UPDATE/:id", updateMovie)
+moviesInfo.get("/getMovies/:id", getMovie)
+
 
 
 
@@ -28,27 +32,27 @@ moviesInfo.use(function (err, req, res, next) {
     res.status(500).send(new ErrorHandler(500, "Sorry, something went wrong"))
 })
 
-function newMovie(req, res) {
-    console.log("welcome to our server");
+async function newMovie(req, res) {
+   await console.log("welcome to our server");
 }
 
-function renderJSON(req, res) {
-    res.send(new MovieConstructor(movieData.id, movieData.title, movieData.release_date, movieData.poster_path, movieData.overview))
+async function renderJSON(req, res) {
+   await res.send(new MovieConstructor(movieData.id, movieData.title, movieData.release_date, movieData.poster_path, movieData.overview))
 }
 
-function favMovie(req, res) {
-    res.send("Welcome to Favorite Page")
+async function favMovie(req, res) {
+   await res.send("Welcome to Favorite Page")
 }
-function postMovie(req,res){
+async function postMovie(req,res){
     let title=req.body.t;
     let date=req.body.d;
     let overview=req.body.o;
-    let sql=`insert into movie(title,release_date,overview) values($1,$2,$3,) `
-    client.query(sql,[title,date,overview]).then(()=>{res.send(`the movie ${title} has been added to database`)})
+    let sql=`INSERT INTO movie(title,release_date,overview) VALUES($1,$2,$3,) `
+    await client.query(sql,[title,date,overview]).then(()=>{res.send(`the movie ${title} has been added to database`)})
 }
-function getMovie(req,res){
+async function getMovies(req,res){
     let sql=`SELECT * FROM movie`
-    client.query(sql).then((movieData)=>{res.status(200).send(movieData.rows)})
+    await client.query(sql).then((movieData)=>{res.status(200).send(movieData.rows)})
 }
 async function trendingMovie(req, res) {
 
@@ -71,7 +75,42 @@ async function searchMovie(req, res) {
     res.status(200).send(arr1)
 
 }
+async function getMovie (req,res){
+   const{ id}=req.params
+   const sql=`SELECT * FROM movie WHERE id=$1`
 
+   await client.query(sql,[id]).then((movieData)=>{res.status(200).send(movieData.rows[0])})
+
+
+}
+async function getMovie (req,res){
+    const{ id}=req.params
+    const sql=`SELECT * FROM movie WHERE id=$1`
+ 
+    await client.query(sql,[id]).then((movieData)=>{res.status(200).send(movieData.rows[0])})
+ 
+ 
+ }
+
+async function deleteMovie (req,res){
+    const{ id}=req.params
+    const sql=`DELETE FROM movie WHERE id=$1`
+ 
+    await client.query(sql,[id]).then((movieData)=>{res.status(200).send(movieData.rows[0])})
+ 
+ 
+ }
+ 
+ async function updateMovie (req,res){
+    const{ id}=req.params
+    let title=req.body.t;
+    let date=req.body.d;
+    let overview=req.body.o;
+    let sql=`UPDATE Movie SET (title,release_date,overview) VALUES($2,$3,$4,) WHERE id=$1 `
+ 
+    await client.query(sql,[id,title,date,overview]).then((movieData)=>{res.status(200).send(movieData.rows[0])})
+ 
+ }
 moviesInfo.use("*", function wrongRoute(req, res, next) {
     res.send(new ErrorHandler(404, "page not found error"))
     next()
