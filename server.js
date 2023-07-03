@@ -65,7 +65,7 @@ async function queryHandler1(req, res) {
         res.status(200).send(arr1)
 
     }
-    else if (req.url === "getMovies") {
+    else if (req.url === "/getMovies") {
         let sql = `SELECT * FROM movie`
         await client.query(sql).then((movieData) => { res.status(200).send(movieData.rows) })
     }
@@ -90,7 +90,7 @@ async function queryHandler2(req, res) {
         let title = req.body.t;
         let date = req.body.d;
         let overview = req.body.o;
-        let sql = `UPDATE Movie SET (title,release_date,overview) VALUES($2,$3,$4,) WHERE id=$1 `
+        let sql = `UPDATE Movie SET (title,release_date,overview) VALUES($2,$3,$4) WHERE id=$1 `
 
         await client.query(sql, [id, title, date, overview]).then((movieData) => { res.status(200).send(movieData.rows[0]) })
 
@@ -99,7 +99,7 @@ async function queryHandler2(req, res) {
         let title = req.body.t;
         let date = req.body.d;
         let overview = req.body.o;
-        let sql = `INSERT INTO movie(title,release_date,overview) VALUES($1,$2,$3,) `
+        let sql = `INSERT INTO movie(title,release_date,overview) VALUES($1,$2,$3) `
         await client.query(sql, [title, date, overview]).then(() => { res.send(`the movie ${title} has been added to database`) })
 
     }
