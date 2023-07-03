@@ -29,6 +29,7 @@ moviesInfo.get("/getMovies/:id", queryHandler2)
 
 
 
+
 moviesInfo.use(function (err, req, res, next) {
     res.status(500).send(new ErrorHandler(500, "Sorry, something went wrong"))
 })
