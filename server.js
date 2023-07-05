@@ -20,8 +20,8 @@ require("dotenv").config()
 // })
 
 
-client.connect().then(() => {
-    moviesInfo.listen(port, newMovie)
+//client.connect().then(() => {
+//    moviesInfo.listen(port, newMovie)
 
 
 
