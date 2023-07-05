@@ -49,7 +49,7 @@ async function queryHandler1(req, res,next) {
       
 }
 }
-async function queryHandler2(req, res) {
+async function queryHandler2(req, res,next) {
     try{
     if (req.method === "GET") {
         const { id } = req.params
@@ -70,7 +70,7 @@ async function queryHandler2(req, res) {
         let title = req.body.t;
         let date = req.body.d;
         let overview = req.body.o;
-        let sql = `UPDATE Movie SET (title,release_date,overview) VALUES($2,$3,$4) WHERE id=$1 `
+        let sql = `UPDATE Movie SET title=$2,release_date=$3,overview=$4 WHERE id=$1`
 
         await client.query(sql, [id, title, date, overview]).then((movieData) => { res.status(200).send(movieData.rows[0]) })
 
