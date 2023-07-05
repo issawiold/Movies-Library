@@ -19,6 +19,12 @@ require("dotenv").config()
 //     moviesInfo.listen(process.env.port, newMovie)
 // })
 
+
+client.connect().then(() => {
+    moviesInfo.listen(port, newMovie)
+
+
+
 // moviesInfo.get('/', queryHandler1)
 // moviesInfo.get("/favorite", queryHandler1)
 // moviesInfo.get("/trending", queryHandler1)
