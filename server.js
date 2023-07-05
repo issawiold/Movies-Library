@@ -20,7 +20,9 @@ require("dotenv").config()
 // })
 client.connect().then(() => {
     moviesInfo.listen(port, newMovie)
-})
+
+
+
 
 async function newMovie(req, res) {
     await console.log("welcome to our server");
