@@ -6,6 +6,7 @@ const data = require('./Movie Data/data.json')
 const movieData = data
 const {key}=require("./configs")
 
+
 async function queryHandler1(req, res,next) {
     try {
         
