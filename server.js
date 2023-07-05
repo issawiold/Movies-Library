@@ -3,12 +3,12 @@ const express = require("express")
 const cors = require("cors")
 const pg = require("pg")
 const moviesInfo = express()
-const errorNotFound=require("./error_handlers/404")
-const serverError=require("./error_handlers/500")
-const router=require("./routes/routes")
-const {port} = require("./configs");
-const client=require("./client")
-const {ErrorHandler}=require("./constructors")
+const errorNotFound = require("./error_handlers/404")
+const serverError = require("./error_handlers/500")
+const router = require("./routes/routes")
+const { port } = require("./configs");
+const client = require("./client")
+const { ErrorHandler } = require("./constructors")
 
 moviesInfo.use(cors())
 moviesInfo.use(express.json())
@@ -18,15 +18,13 @@ require("dotenv").config()
 // client.connect().then(() => {
 //     moviesInfo.listen(process.env.port, newMovie)
 // })
+
+
 client.connect().then(() => {
     moviesInfo.listen(port, newMovie)
 
 
 
-
-async function newMovie(req, res) {
-    await console.log("welcome to our server");
-}
 // moviesInfo.get('/', queryHandler1)
 // moviesInfo.get("/favorite", queryHandler1)
 // moviesInfo.get("/trending", queryHandler1)
@@ -38,7 +36,7 @@ async function newMovie(req, res) {
 // moviesInfo.get("/getMovies/:id", queryHandler2)
 
 
-
+console.log(port);
 
 moviesInfo.use(serverError)
 // // moviesInfo.use(function (err, req, res, next) {
@@ -117,7 +115,13 @@ moviesInfo.use(router)
 //     }
 // };
 moviesInfo.use(errorNotFound)
+client.connect().then(() => {
+    moviesInfo.listen(port, newMovie)
+})
 
+async function newMovie(req, res) {
+    await console.log("welcome to our server");
+}
 // moviesInfo.use("*", function wrongRoute(req, res, next) {
 //     res.send(new ErrorHandler(404, "page not found error"))
 //     next()

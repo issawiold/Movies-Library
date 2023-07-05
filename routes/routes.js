@@ -2,7 +2,7 @@ const express =require('express')
 const Router=express.Router()
 const {queryHandler1,queryHandler2}=require("../functions")
 
-Router.get('/', queryHandler1)
+Router.get('/',queryHandler1)
 Router.get("/favorite", queryHandler1)
 Router.get("/trending", queryHandler1)
 Router.get("/search", queryHandler1)
